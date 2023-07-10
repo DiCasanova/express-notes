@@ -13,14 +13,18 @@ class Note {
 class NoteStore {
     constructor() {
         this.dummyNotes = [
-            new Note("Geburtstag", 2, new Date(), false,  "blabla1"),
-            new Note("Telefon", 3, new Date(), false,  "blabla2"),
-            new Note("DiesDas", 4, new Date(), false,  "blabla3"),
+            new Note("Geburtstag", 2, new Date("07/20/2023"), false,  "blabla1"),
+            new Note("Telefon", 3, new Date("07/25/2023"), false,  "blabla2"),
+            new Note("DiesDas", 4, new Date("07/10/2023"), false,  "blabla3"),
         ];
     }
 
     get(id) {
         return this.dummyNotes[id];
+    }
+
+    getAll() {
+        return this.dummyNotes;
     }
 }
 

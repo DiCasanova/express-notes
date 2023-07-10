@@ -1,1 +1,39 @@
-{{data}}
+<div class="menu">
+    <form action='/create' method='get'>
+        <input type='submit' value='Create new todo'>
+    </form>
+    <form action='/toggle' method='post'>
+        <input type='submit' value='Toggle Style'>
+    </form>
+</div>
+
+<div class="sort-buttons">
+    <form action="/sort" method="post">
+        <input type="submit" name="name" value="Name" />
+        <input type="submit" name="due_date" value="By Due Date" />
+        <input type="submit" name="creation_date" value="By Creation Date" />
+        <input type="submit" name="importance" value="By Importance" />
+    </form>
+    <form class="filter-button" action='/filter' method='post'>
+        <input type='submit' value='Filter completed'>
+    </form>
+</div>
+
+{{#each entries}}
+    <div class="entry">
+        <div class="entry-details">
+            <label class="due">{{this.daysUntilDueDate}} </label>
+            <label class="title">{{this.title}}</label>
+            <label class="importance">{{this.importance}}</label>
+            <input class="finished" type="checkbox" value="Finished" disabled="disabled" checked="checked">
+            <label class="description">{{this.description}}</label>
+        </div>
+        <div class="entry-edit">
+            <form class="edit-button" action='/edit' method='get'>
+                <input type='submit' value='edit'>
+            </form>
+        </div>
+    </div>
+    <hr>
+{{/each}}
+
