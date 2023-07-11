@@ -8,7 +8,7 @@
 }
 
 .sort-buttons {
-    margin: 10px 0px;
+    margin: 10px 0;
     display: flex;
     justify-content: flex-start;
 }
@@ -25,7 +25,8 @@
 .entry-details {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
+    padding-right: 30px;
+    grid-template-columns: 2fr 5fr 1fr;
     grid-column-gap: 10px;
     grid-template-rows: 1fr 1fr;
     grid-row-gap: 10px;
@@ -44,6 +45,7 @@
 .importance {
     grid-column: 3;
     grid-row: 1;
+    justify-self: end;
 }
 
 .finished{

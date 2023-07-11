@@ -24,8 +24,11 @@
         <div class="entry-details">
             <label class="due">{{this.daysUntilDueDate}} </label>
             <label class="title">{{this.title}}</label>
-            <label class="importance">{{this.importance}}</label>
-            <input class="finished" type="checkbox" value="Finished" disabled="disabled" checked="checked">
+            <label class="importance">{{this.importanceSym}}</label>
+            <div>
+                <input class="finished" id="finished" type="checkbox" disabled="disabled" {{#if this.finished}}checked="checked"{{/if}}>
+                <label for="finished">{{#if this.finished}}Completed{{else}}Open{{/if}}</label>
+            </div>
             <label class="description">{{this.description}}</label>
         </div>
         <div class="entry-edit">
