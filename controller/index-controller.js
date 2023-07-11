@@ -14,6 +14,17 @@ export class IndexController {
             dark: true
         });
     };
+
+    edit(req, res) {
+        res.render("edit")
+    }
+
+    edit_submit(req, res) {
+        console.log(req.body);
+        noteStore.add(req.body.title, req.body.importance, req.body.due_date, req.body.finished, req.body.description)
+        res.status(200);
+        res.send("Success!");
+    }
 }
 
 export const indexController = new IndexController();

@@ -63,3 +63,20 @@
     align-self: center;
     margin-left: auto;
 }
+
+div{
+    padding: 0 10px;
+}
+
+input[type='text']{
+    width: 100%;
+}
+
+input[type='date']{
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    resize: none;
+}

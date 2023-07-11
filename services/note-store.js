@@ -26,6 +26,10 @@ class NoteStore {
     getAll() {
         return this.dummyNotes;
     }
+
+    async add(title, importance, dueDate, finished, description) {
+        this.dummyNotes.push(new Note(title, importance, new Date(dueDate), finished, description))
+    }
 }
 
 export const noteStore = new NoteStore();
