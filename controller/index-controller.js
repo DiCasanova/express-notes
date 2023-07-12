@@ -11,19 +11,36 @@ export class IndexController {
         //render index page
         res.render("index", {
             entries: list,
-            dark: true
+            dark: false
         });
     };
 
     edit(req, res) {
-        res.render("edit")
+        if(req.query.id)
+        {
+            let entry = noteStore.get(req.query.id);
+            console.log(entry);
+            res.render("edit", {
+                entry: entry,
+                dark: false
+            });
+        }
+        else
+            res.render("edit")
+
     }
 
-    edit_submit(req, res) {
-        console.log(req.body);
-        noteStore.add(req.body.title, req.body.importance, req.body.due_date, req.body.finished, req.body.description)
-        res.status(200);
-        res.send("Success!");
+    async edit_submit(req, res) {
+        if('create_button' in req.body) {
+            let id = await noteStore.add(req.body.title, req.body.importance, req.body.due_date, req.body.finished, req.body.description)
+            res.redirect(303, '/edit?id='+id);
+        }
+        else
+        {
+            console.log('NOT IMPLEMENTED!')
+            res.status(404);
+            res.send();
+        }
     }
 }
 

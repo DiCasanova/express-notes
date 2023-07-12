@@ -1,7 +1,8 @@
 //import Datastore from '@seald-io/nedb';
 
 class Note {
-    constructor(title, importance, dueDate, finished, description) {
+    constructor(id, title, importance, dueDate, finished, description) {
+        this.id = id;
         this.title = title;
         this.importance = importance;
         this.dueDate = dueDate;
@@ -13,9 +14,9 @@ class Note {
 class NoteStore {
     constructor() {
         this.dummyNotes = [
-            new Note("Geburtstag", 2, new Date("07/20/2023"), false,  "blabla1"),
-            new Note("Telefon", 3, new Date("07/25/2023"), false,  "blabla2"),
-            new Note("DiesDas", 4, new Date("07/10/2023"), true,  "blabla3"),
+            new Note(0,"Geburtstag", 2, "2023-07-20", false,  "blabla1"),
+            new Note(1, "Telefon", 3, "2023-07-18", false,  "blabla2"),
+            new Note(2, "DiesDas", 4, "2023-07-13", true,  "blabla3"),
         ];
     }
 
@@ -28,7 +29,8 @@ class NoteStore {
     }
 
     async add(title, importance, dueDate, finished, description) {
-        this.dummyNotes.push(new Note(title, importance, new Date(dueDate), finished, description))
+        this.dummyNotes.push(new Note(this.dummyNotes.length - 1, title, importance, dueDate, finished, description))
+        return this.dummyNotes.length - 1;
     }
 }
 

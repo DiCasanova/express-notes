@@ -1,17 +1,17 @@
 <div>
-    <form action="/edit_submit" method="post">
+    <form action="/edit_submit{{#if (isdefined entry.id)}}/{{entry.id}}{{/if}}" method="post">
         <label for="title">Title</label> <br>
-        <input class="input" type="text" id="title" name="title"> <br><br>
+        <input class="input" type="text" id="title" name="title" {{#if (isdefined entry.title)}}value={{entry.title}}{{/if}}  required> <br><br>
         <label for="importance">Importance</label> <br>
-        <input class="input" type="text" id="importance" name="importance"> <br><br>
+        <input class="input" type="text" id="importance" name="importance" {{#if (isdefined entry.importance)}}value={{entry.importance}}{{/if}} required> <br><br>
         <label for="due_date">Due Date:</label> <br>
-        <input type="date" name="due_date" id="due_date"> <br><br>
-        <input class="finished" name="finished" id="finished" type="checkbox" >
+        <input type="date" name="due_date" id="due_date" {{#if (isdefined entry.dueDate)}}value={{entry.dueDate}}{{/if}} required> <br><br>
+        <input class="finished" name="finished" id="finished" type="checkbox" {{#if (isdefined entry.finished)}}{{#if entry.finished}}checked="checked"{{/if}}{{/if}} >
         <label for="finished">Finished</label> <br><br>
         <label for="description">Description</label> <br>
-        <textarea id="description" name="description" rows="4"></textarea> <br><br>
-        <input type="submit" name="create_button" value="Create" />
-        <input type="submit" name="create_ov_button" value="Create & Overview" />
+        <textarea id="description" name="description" rows="4">{{#if (isdefined entry.description)}}{{entry.description}}{{/if}}</textarea> <br><br>
+        <input type="submit" name="create_button" value="{{#if (isdefined entry.id)}}Update{{else}}Create{{/if}}" />
+        <input type="submit" name="create_ov_button" value="{{#if (isdefined entry.id)}}Update & Overview{{else}}Create & Overview{{/if}}" />
         <input type="submit" name="delete_button" value="Delete" />
     </form>
 </div>
