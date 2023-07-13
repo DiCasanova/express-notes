@@ -5,7 +5,7 @@ export class IndexController {
         //determine days until due date and replace importance by lightning symbol for each element in list
         let list = structuredClone(noteStore.getAll());
         list.forEach((element) => {
-            element.daysUntilDueDate = Math.ceil((new Date(element.dueDate) - new Date()) / (1000 * 60 * 60 * 24));
+            element.daysUntilDueDate = 'in ' + Math.ceil((new Date(element.dueDate) - new Date()) / (1000 * 60 * 60 * 24)) + ' day(s)';
             element.importanceSym = "🗲 ".repeat(element.importance);
         });
         //render index page
