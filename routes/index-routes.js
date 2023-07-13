@@ -5,7 +5,11 @@ import {indexController} from '../controller/index-controller.js';
 
 router.get("/", indexController.index.bind(indexController));
 
-router.get("/edit", indexController.edit);
-router.post("/edit_submit", indexController.edit_submit)
+router.get("/edit", indexController.newNote);
+router.get("/edit/:id/", indexController.showNote);
+router.post("/edit", indexController.createNote);
+router.post("/edit/:id/", indexController.updateNote);
+
+//router.delete("/orders/:id/", indexController.delete);
 
 export const indexRoutes = router;

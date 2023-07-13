@@ -32,6 +32,18 @@ class NoteStore {
         this.dummyNotes.push(new Note(this.dummyNotes.length - 1, title, importance, dueDate, finished, description))
         return this.dummyNotes.length - 1;
     }
+
+    async update(id, title, importance, dueDate, finished, description) {
+        this.dummyNotes[id].title = title;
+        this.dummyNotes[id].importance = importance;
+        this.dummyNotes[id].dueDate = dueDate;
+        this.dummyNotes[id].finished = finished;
+        this.dummyNotes[id].description = description;
+    }
+
+    async delete(id){
+        this.dummyNotes.splice(id, 1);
+    }
 }
 
 export const noteStore = new NoteStore();

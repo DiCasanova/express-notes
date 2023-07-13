@@ -1,5 +1,5 @@
 <div>
-    <form action="/edit_submit{{#if (isdefined entry.id)}}/{{entry.id}}{{/if}}" method="post">
+    <form action="/edit{{#if (isdefined entry.id)}}/{{entry.id}}{{/if}}" method="post">
         <label for="title">Title</label> <br>
         <input class="input" type="text" id="title" name="title" {{#if (isdefined entry.title)}}value={{entry.title}}{{/if}}  required> <br><br>
         <label for="importance">Importance</label> <br>
@@ -12,6 +12,6 @@
         <textarea id="description" name="description" rows="4">{{#if (isdefined entry.description)}}{{entry.description}}{{/if}}</textarea> <br><br>
         <input type="submit" name="create_button" value="{{#if (isdefined entry.id)}}Update{{else}}Create{{/if}}" />
         <input type="submit" name="create_ov_button" value="{{#if (isdefined entry.id)}}Update & Overview{{else}}Create & Overview{{/if}}" />
-        <input type="submit" name="delete_button" value="Delete" />
+        <input type="submit" name="ov_delete_button" value="{{#if (isdefined entry.id)}}Delete{{else}}Overview{{/if}}" />
     </form>
 </div>
