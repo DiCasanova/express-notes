@@ -3,10 +3,18 @@ import {noteStore} from "../services/note-store.js";
 export class IndexController {
     index(req, res) {
         //determine days until due date and replace importance by lightning symbol for each element in list
-        let list = structuredClone(noteStore.getAll());
-        list.forEach((element) => {
-            element.daysUntilDueDate = 'in ' + Math.ceil((new Date(element.dueDate) - new Date()) / (1000 * 60 * 60 * 24)) + ' day(s)';
-            element.importanceSym = "🗲 ".repeat(element.importance);
+        let list = [];
+        noteStore.getAll().forEach((element) => {
+            if(req.session?.filterActive && element.finished)
+                return;
+            let obj = {};
+            obj.id = element.id;
+            obj.daysUntilDueDate = 'in ' + Math.ceil((new Date(element.dueDate) - new Date()) / (1000 * 60 * 60 * 24)) + ' day(s)';
+            obj.importanceSym = "🗲 ".repeat(element.importance);
+            obj.title = element.title;
+            obj.description = element.description
+            obj.finished = element.finished;
+            list.push(obj);
         });
         //render index page
         res.render("index", {
@@ -59,6 +67,11 @@ export class IndexController {
             noteStore.delete(req.params.id)
             res.redirect(303, '/');
         }
+    }
+
+    filter(req, res) {
+        req.session.filterActive = !req.session?.filterActive;
+        res.redirect(303, '/');
     }
 
 }
