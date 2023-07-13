@@ -5,6 +5,7 @@ class Note {
         this.id = id;
         this.title = title;
         this.importance = importance;
+        this.creationDate = new Date();
         this.dueDate = dueDate;
         this.finished = finished;
         this.description = description;
@@ -29,7 +30,7 @@ class NoteStore {
     }
 
     async add(title, importance, dueDate, finished, description) {
-        this.dummyNotes.push(new Note(this.dummyNotes.length - 1, title, importance, dueDate, finished, description))
+        this.dummyNotes.push(new Note(this.dummyNotes.length, title, importance, dueDate, finished, description))
         return this.dummyNotes.length - 1;
     }
 

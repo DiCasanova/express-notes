@@ -10,6 +10,8 @@ router.get("/edit/:id/", indexController.showNote);
 router.post("/edit", indexController.createNote);
 router.post("/edit/:id/", indexController.updateNote);
 router.post("/filter", indexController.filter);
+router.post("/sort", indexController.sort);
+
 
 //router.delete("/orders/:id/", indexController.delete);
 

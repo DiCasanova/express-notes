@@ -12,6 +12,6 @@
         <textarea id="description" name="description" rows="4">{{#if (isdefined entry.description)}}{{entry.description}}{{/if}}</textarea> <br><br>
         <input type="submit" name="create_button" value="{{#if (isdefined entry.id)}}Update{{else}}Create{{/if}}" />
         <input type="submit" name="create_ov_button" value="{{#if (isdefined entry.id)}}Update & Overview{{else}}Create & Overview{{/if}}" />
-        <input type="submit" name="ov_delete_button" value="{{#if (isdefined entry.id)}}Delete{{else}}Overview{{/if}}" />
+        <input type="submit" name="ov_button" value="Overview" />
     </form>
 </div>
