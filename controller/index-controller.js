@@ -119,7 +119,6 @@ export class IndexController {
             req.userSettings.orderBy === 'importance' ? req.userSettings.orderDirection = -1 * req.userSettings.orderDirection :  req.userSettings.orderDirection = -1;
             req.userSettings.orderBy = 'importance';
         }
-        console.log(req.userSettings.orderBy + ' Direction: ' + req.userSettings.orderDirection);
         res.redirect(303, '/');
     }
 
