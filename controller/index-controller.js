@@ -40,7 +40,6 @@ export class IndexController {
 
     async showNote(req, res) {
         let entry = await noteStore.get(req.params.id);
-        console.log(entry);
         res.render("edit", {
             entry: entry,
             dark: req.session?.darkMode
@@ -50,7 +49,6 @@ export class IndexController {
     async createNote(req, res) {
         if('create_button' in req.body) {
             let note = await noteStore.add(req.body.title, req.body.importance, req.body.due_date, req.body.finished, req.body.description)
-            console.log(note._id)
             res.redirect(303, '/edit/'+note._id);
         }
         else if('create_ov_button' in req.body)
