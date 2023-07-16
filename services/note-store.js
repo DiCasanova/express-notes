@@ -1,8 +1,7 @@
-//import Datastore from '@seald-io/nedb';
+import Datastore from 'nedb-promises'
 
 class Note {
-    constructor(id, title, importance, dueDate, finished, description) {
-        this.id = id;
+    constructor(title, importance, dueDate, finished, description) {
         this.title = title;
         this.importance = importance;
         this.creationDate = new Date();
@@ -13,37 +12,32 @@ class Note {
 }
 
 class NoteStore {
-    constructor() {
-        this.dummyNotes = [
-            new Note(0,"Geburtstag", 2, "2023-07-20", false,  "blabla1"),
-            new Note(1, "Telefon", 3, "2023-07-18", false,  "blabla2"),
-            new Note(2, "DiesDas", 4, "2023-07-13", true,  "blabla3"),
-        ];
+    constructor(db) {
+        const options = process.env.DB_TYPE === "FILE" ? {filename: './data/notes.db', autoload: true} : {}
+        this.db = db || new Datastore(options);
     }
 
-    get(id) {
-        return this.dummyNotes[id];
+    async get(id) {
+        return this.db.findOne({_id: id});
     }
 
-    getAll() {
-        return this.dummyNotes;
+    async getAll() {
+        return this.db.find({});
     }
 
     async add(title, importance, dueDate, finished, description) {
-        this.dummyNotes.push(new Note(this.dummyNotes.length, title, importance, dueDate, finished, description))
-        return this.dummyNotes.length - 1;
+        let note = new Note(title, importance, dueDate, finished, description);
+        return this.db.insert(note);
     }
 
     async update(id, title, importance, dueDate, finished, description) {
-        this.dummyNotes[id].title = title;
-        this.dummyNotes[id].importance = importance;
-        this.dummyNotes[id].dueDate = dueDate;
-        this.dummyNotes[id].finished = finished;
-        this.dummyNotes[id].description = description;
-    }
-
-    async delete(id){
-        this.dummyNotes.splice(id, 1);
+        return this.db.update({_id: id}, {
+            title: title,
+            importance: importance,
+            dueDate: dueDate,
+            finished: finished,
+            description: description
+        });
     }
 }
 

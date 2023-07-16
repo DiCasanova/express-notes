@@ -2,8 +2,8 @@ import {noteStore} from "../services/note-store.js";
 import session from "express-session";
 
 export class IndexController {
-    index(req, res) {
-        let allNotes = noteStore.getAll();
+    async index(req, res) {
+        let allNotes = await noteStore.getAll();
 
         //sort allNotes and determine sortingStr (used by handlebars)
         sortList(allNotes, req.userSettings.orderBy, req.userSettings.orderDirection)
@@ -16,7 +16,7 @@ export class IndexController {
             if(req.session?.filterActive && element.finished)
                 return;
             let obj = {};
-            obj.id = element.id;
+            obj.id = element._id;
             obj.daysUntilDueDate = 'in ' + Math.ceil((new Date(element.dueDate) - new Date()) / (1000 * 60 * 60 * 24)) + ' day(s)';
             obj.importanceSym = "🗲 ".repeat(element.importance);
             obj.title = element.title;
@@ -24,7 +24,6 @@ export class IndexController {
             obj.finished = element.finished;
             list.push(obj);
         });
-
         //render index page
         res.render("index", {
             entries: list,
@@ -39,8 +38,8 @@ export class IndexController {
         })
     }
 
-    showNote(req, res) {
-        let entry = noteStore.get(req.params.id);
+    async showNote(req, res) {
+        let entry = await noteStore.get(req.params.id);
         console.log(entry);
         res.render("edit", {
             entry: entry,
@@ -50,8 +49,9 @@ export class IndexController {
 
     async createNote(req, res) {
         if('create_button' in req.body) {
-            let id = await noteStore.add(req.body.title, req.body.importance, req.body.due_date, req.body.finished, req.body.description)
-            res.redirect(303, '/edit/'+id);
+            let note = await noteStore.add(req.body.title, req.body.importance, req.body.due_date, req.body.finished, req.body.description)
+            console.log(note._id)
+            res.redirect(303, '/edit/'+note._id);
         }
         else if('create_ov_button' in req.body)
         {
