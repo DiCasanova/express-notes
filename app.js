@@ -5,6 +5,7 @@ import session from 'express-session';
 import exphbs from 'express-handlebars';
 
 import {indexRoutes} from './routes/index-routes.js';
+import {editRoutes} from './routes/edit-routes.js';
 import {helpers} from './utils/handlebar-util.js'
 import {sessionUserSettings} from './utils/session-middleware.index.js'
 
@@ -30,4 +31,6 @@ app.use(sessionUserSettings);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+app.use("/edit", editRoutes);
 app.use("/", indexRoutes);
+

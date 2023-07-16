@@ -5,7 +5,13 @@
         </div>
         <div class="form-group my-2">
             <label for="importance">Importance</label>
-            <input class="form-control" type="text" id="importance" name="importance" {{#if (isdefined entry.importance)}}value={{entry.importance}}{{/if}} required>
+            <select id="importance" name="importance" class="form-select">
+                <option value="1" {{#if_eq entry.importance "1"}}selected="selected"{{/if_eq}}>1</option>
+                <option value="2" {{#if_eq entry.importance "2"}}selected="selected"{{/if_eq}}>2</option>
+                <option value="3" {{#if_eq entry.importance "3"}}selected="selected"{{/if_eq}}>3</option>
+                <option value="4" {{#if_eq entry.importance "4"}}selected="selected"{{/if_eq}}>4</option>
+                <option value="5" {{#if_eq entry.importance "5"}}selected="selected"{{/if_eq}}>5</option>
+            </select>
         </div>
         <div class="form-group my-2">
             <label for="due_date">Due Date:</label>
@@ -21,7 +27,7 @@
         </div>
         <div class="my-4">
             <button type="submit" name="create_button" class="btn btn-outline-primary">{{#if (isdefined entry._id)}}Update{{else}}Create{{/if}}</button>
-            <button type="submit" name="create_ov_button" class="btn btn-outline-primary">{{#if (isdefined entry._id)}}Update & Overview{{else}}Create & Overview{{/if}}</button>
+            <button type="submit" name="create_button_ov" class="btn btn-outline-primary">{{#if (isdefined entry._id)}}Update & Overview{{else}}Create & Overview{{/if}}</button>
             <button type="submit" name="ov_button" class="btn btn-outline-primary" onclick="this.form.setAttribute('novalidate', 'novalidate');">Overview</button>
         </div>
     </form>

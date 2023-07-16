@@ -25,7 +25,7 @@
         <div class="d-flex flex-sm-row flex-column my-3">
             <div class="container-fluid">
                 <div class="row">
-                    <label class="col-3">{{this.daysUntilDueDate}} </label>
+                    <label class="col-3"><i><small>{{this.daysUntilDueDate}}</small></i></label>
                     <h6 class="col-5">{{this.title}}</h6>
                     <div class="col-4">
                         <p class="text-end text-nowrap">{{this.importanceSym}}</p>
@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-3">
                         <input id="finished" type="checkbox" disabled="disabled" {{#if this.finished}}checked="checked"{{/if}}>
-                        <label for="finished">{{#if this.finished}}Completed{{else}}Open{{/if}}</label>
+                        <label class="text-muted" for="finished"><small>{{#if this.finished}}Finished{{else}}Open{{/if}}</small></label>
                     </div>
                     <label class="col-9">{{this.description}}</label>
                 </div>

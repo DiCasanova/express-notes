@@ -32,52 +32,6 @@ export class IndexController {
         });
     };
 
-    newNote(req, res) {
-        res.render("edit", {
-            dark: req.session?.darkMode
-        })
-    }
-
-    async showNote(req, res) {
-        let entry = await noteStore.get(req.params.id);
-        res.render("edit", {
-            entry: entry,
-            dark: req.session?.darkMode
-        });
-    }
-
-    async createNote(req, res) {
-        if('create_button' in req.body) {
-            let note = await noteStore.add(req.body.title, req.body.importance, req.body.due_date, req.body.finished, req.body.description)
-            res.redirect(303, '/edit/'+note._id);
-        }
-        else if('create_ov_button' in req.body)
-        {
-            await noteStore.add(req.body.title, req.body.importance, req.body.due_date, req.body.finished, req.body.description)
-            res.redirect(303, '/');
-        }
-        else if('ov_button' in req.body)
-        {
-            res.redirect(303, '/');
-        }
-    }
-
-    updateNote(req, res) {
-        if('create_button' in req.body) {
-            noteStore.update(req.params.id, req.body.title, req.body.importance, req.body.due_date, req.body.finished, req.body.description)
-            res.redirect(303, '/edit/'+req.params.id);
-        }
-        else if('create_ov_button' in req.body)
-        {
-            noteStore.update(req.params.id, req.body.title, req.body.importance, req.body.due_date, req.body.finished, req.body.description)
-            res.redirect(303, '/');
-        }
-        else if('ov_button' in req.body)
-        {
-            res.redirect(303, '/');
-        }
-    }
-
     filter(req, res) {
         req.session.filterActive = !req.session?.filterActive;
         res.redirect(303, '/');
