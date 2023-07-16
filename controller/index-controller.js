@@ -1,4 +1,5 @@
 import {noteStore} from "../services/note-store.js";
+import session from "express-session";
 
 export class IndexController {
     index(req, res) {
@@ -20,30 +21,14 @@ export class IndexController {
             list.push(obj);
         });
 
-        list.sort((a,b) => {
-            switch (req.userSettings.orderBy) {
-                case "title":
-                    let ta = a.title.toLowerCase(),
-                        tb = b.title.toLowerCase();
-                    if(ta < tb)
-                        return req.userSettings.orderDirection;
-                    if(ta > tb)
-                        return -1 * req.userSettings.orderDirection;
-                    return 0;
-                case "due_date":
-                    let da = new Date(a.dueDate),
-                        db = new Date(b.dueDate);
-                    return req.userSettings.orderDirection * (db - da);
-                case "creation_date":
-                    return req.userSettings.orderDirection * (b.creationDate - a.creationDate);
-                case "importance":
-                    return req.userSettings.orderDirection * (b.importance - a.importance);
-            }
-        })
+        sortList(list, req.userSettings.orderBy, req.userSettings.orderDirection)
+        let sortingMethodStr = req.userSettings.orderBy + "_";
+        sortingMethodStr += req.userSettings.orderDirection === 1 ? "asc":"dsc";
 
         //render index page
         res.render("index", {
             entries: list,
+            sort: sortingMethodStr,
             dark: req.session?.darkMode
         });
     };
@@ -128,6 +113,30 @@ export class IndexController {
         req.session.darkMode = !req.session?.darkMode;
         res.redirect(303, '/');
     }
+}
+
+// helper function for sorting
+function sortList(list, orderBy, orderDirection) {
+    list.sort((a,b) => {
+        switch (orderBy) {
+            case "title":
+                let ta = a.title.toLowerCase(),
+                    tb = b.title.toLowerCase();
+                if(ta < tb)
+                    return orderDirection;
+                if(ta > tb)
+                    return -1 * orderDirection;
+                return 0;
+            case "due_date":
+                let da = new Date(a.dueDate),
+                    db = new Date(b.dueDate);
+                return orderDirection * (db - da);
+            case "creation_date":
+                return orderDirection * (b.creationDate - a.creationDate);
+            case "importance":
+                return orderDirection * (b.importance - a.importance);
+        }
+    });
 }
 
 export const indexController = new IndexController();

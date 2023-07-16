@@ -10,10 +10,10 @@
 <div class="d-flex flex-sm-row flex-column">
     <div class="container-fluid">
         <form class="row" action="/sort" method="post">
-            <button type="submit" name="title" class="btn btn-outline-primary col-sm-auto">Name <i class="bi-caret-down-fill"></i></button>
-            <button type="submit" name="due_date" class="btn btn-outline-primary col-sm-auto">By Due Date</button>
-            <button type="submit" name="creation_date" class="btn btn-outline-primary col-sm-auto">By Creation Date</button>
-            <button type="submit" name="importance" class="btn btn-outline-primary col-sm-auto">By Importance</button>
+            <button type="submit" name="title" class="btn btn-outline-primary col-sm-auto">Name{{#if_eq sort "title_asc"}}<i class="bi-caret-down-fill"></i>{{/if_eq}}{{#if_eq sort "title_dsc"}}<i class="bi-caret-up-fill"></i>{{/if_eq}}</button>
+            <button type="submit" name="due_date" class="btn btn-outline-primary col-sm-auto">By Due Date{{#if_eq sort "due_date_asc"}}<i class="bi-caret-down-fill"></i>{{/if_eq}}{{#if_eq sort "due_date_dsc"}}<i class="bi-caret-up-fill"></i>{{/if_eq}}</button>
+            <button type="submit" name="creation_date" class="btn btn-outline-primary col-sm-auto">By Creation Date{{#if_eq sort "creation_date_asc"}}<i class="bi-caret-down-fill"></i>{{/if_eq}}{{#if_eq sort "creation_date_dsc"}}<i class="bi-caret-up-fill"></i>{{/if_eq}}</button>
+            <button type="submit" name="importance" class="btn btn-outline-primary col-sm-auto">By Importance{{#if_eq sort "importance_asc"}}<i class="bi-caret-down-fill"></i>{{/if_eq}}{{#if_eq sort "importance_dsc"}}<i class="bi-caret-up-fill"></i>{{/if_eq}}</button>
         </form>
     </div>
     <form action='/filter' class="ml-auto" method='post'>
