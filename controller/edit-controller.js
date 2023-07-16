@@ -10,10 +10,18 @@ export class EditController {
 
     async showNote(req, res) {
         let entry = await noteStore.get(req.params.id);
-        res.render("edit", {
-            entry: entry,
-            dark: req.session?.darkMode
-        });
+        if(entry !== null)
+        {
+            res.render("edit", {
+                entry: entry,
+                dark: req.session?.darkMode
+            });
+        }
+        else
+        {
+            res.sendStatus(404);
+        }
+
     }
 
     async createNote(req, res) {
@@ -35,7 +43,7 @@ export class EditController {
             }
         }
         else
-            res.sendStatus(404);
+            res.sendStatus(403);
 
     }
 
@@ -59,13 +67,12 @@ export class EditController {
             }
         }
         else
-            res.sendStatus(404);
+            res.sendStatus(403);
 
     }
 }
 
 function validate(id, title, importance, due_date) {
-    console.log(importance)
     if (id === undefined || title === undefined || importance === undefined || due_date === undefined)
         return false;
     if (importance > 5 || importance < 1)
