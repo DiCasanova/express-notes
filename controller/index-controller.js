@@ -84,7 +84,9 @@ function sortList(list, orderBy, orderDirection) {
                     db = new Date(b.dueDate);
                 return orderDirection * (db - da);
             case "creation_date":
-                return orderDirection * (b.creationDate - a.creationDate);
+                let ca = new Date(a.creationDate),
+                    cb = new Date(b.creationDate);
+                return orderDirection * (cb - ca);
             case "importance":
                 return orderDirection * (b.importance - a.importance);
         }

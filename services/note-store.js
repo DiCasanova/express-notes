@@ -31,13 +31,15 @@ class NoteStore {
     }
 
     async update(id, title, importance, dueDate, finished, description) {
-        return this.db.update({_id: id}, {
-            title: title,
-            importance: importance,
-            dueDate: dueDate,
-            finished: finished,
-            description: description
-        });
+        return this.db.update({_id: id},
+            {$set: {
+                title: title,
+                    importance: importance,
+                    dueDate: dueDate,
+                    finished: finished,
+                    description: description
+            }},
+            { });
     }
 }
 
