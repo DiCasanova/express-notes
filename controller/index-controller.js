@@ -44,12 +44,14 @@ export class IndexController {
         //render index page
         res.render("index", {
             entries: list,
-            dark: false
+            dark: req.session?.darkMode
         });
     };
 
     newNote(req, res) {
-        res.render("edit")
+        res.render("edit", {
+            dark: req.session?.darkMode
+        })
     }
 
     showNote(req, res) {
@@ -57,7 +59,7 @@ export class IndexController {
         console.log(entry);
         res.render("edit", {
             entry: entry,
-            dark: false
+            dark: req.session?.darkMode
         });
     }
 
@@ -122,6 +124,10 @@ export class IndexController {
         res.redirect(303, '/');
     }
 
+    toggle(req, res) {
+        req.session.darkMode = !req.session?.darkMode;
+        res.redirect(303, '/');
+    }
 }
 
 export const indexController = new IndexController();

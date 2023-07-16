@@ -11,6 +11,7 @@ router.post("/edit", indexController.createNote);
 router.post("/edit/:id/", indexController.updateNote);
 router.post("/filter", indexController.filter);
 router.post("/sort", indexController.sort);
+router.post("/toggle", indexController.toggle);
 
 
 //router.delete("/orders/:id/", indexController.delete);
