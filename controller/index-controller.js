@@ -3,27 +3,27 @@ import session from "express-session";
 
 export class IndexController {
     index(req, res) {
-        //determine days until due date and replace importance by lightning symbol for each element in list
+        let allNotes = noteStore.getAll();
+
+        //sort allNotes and determine sortingStr (used by handlebars)
+        sortList(allNotes, req.userSettings.orderBy, req.userSettings.orderDirection)
+        let sortingMethodStr = req.userSettings.orderBy + "_";
+        sortingMethodStr += req.userSettings.orderDirection === 1 ? "asc":"dsc";
+
+        //data transformation needed by handlebars template
         let list = [];
-        noteStore.getAll().forEach((element) => {
+        allNotes.forEach((element) => {
             if(req.session?.filterActive && element.finished)
                 return;
             let obj = {};
             obj.id = element.id;
-            obj.dueDate = element.dueDate;
             obj.daysUntilDueDate = 'in ' + Math.ceil((new Date(element.dueDate) - new Date()) / (1000 * 60 * 60 * 24)) + ' day(s)';
-            obj.creationDate = element.creationDate;
-            obj.importance = element.importance;
             obj.importanceSym = "🗲 ".repeat(element.importance);
             obj.title = element.title;
             obj.description = element.description
             obj.finished = element.finished;
             list.push(obj);
         });
-
-        sortList(list, req.userSettings.orderBy, req.userSettings.orderDirection)
-        let sortingMethodStr = req.userSettings.orderBy + "_";
-        sortingMethodStr += req.userSettings.orderDirection === 1 ? "asc":"dsc";
 
         //render index page
         res.render("index", {
